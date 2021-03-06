@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    
+    <group ns="/mrm">
+        
+        <!-- Robot model -->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find eagle_claw_gripper)/urdf/cylinder_arm_with_gripper.xacro'" />
+        <arg name="x" default="0"/>
+        <arg name="y" default="0"/>
+        <arg name="z" default="0.5"/>
+        
+        <!-- Spawn the robot model -->
+        <node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+              args="-urdf -param robot_description -model mrm -x $(arg x) -y $(arg y) -z $(arg z)" />
+      
+        <!-- Load controllers -->
+        <rosparam command="load" file="$(find eagle_claw_gripper)/config/joints_with_gripper.yaml" />
+        
+        <!-- Controllers -->
+        <node name="controller_spawner" pkg="controller_manager" type="spawner"
+            respawn="false" output="screen" ns="/mrm"
+            args="--namespace=/mrm
+            joint_state_controller
+            joint1_position_controller
+            joint2_position_controller
+            joint3_position_controller
+            joint4_position_controller
+            joint5_position_controller
+            joint6_position_controller
+            --timeout 60">
+        </node>
+        <!-- joint7_position_controller
+            joint8_position_controller
+            joint9_position_controller
+            joint10_position_controller
+            joint11_position_controller-->
+    </group>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find eagle_claw_gripper)/worlds/low_gravity.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+          
+</launch>
