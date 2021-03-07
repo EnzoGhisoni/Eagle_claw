@@ -83,7 +83,7 @@
            axis_xyz="0 0 1"
            origin_rpy="0 0 0" origin_xyz="0 0 0.8"
            parent="link_04" child="link_05"
-           limit_e="1000" limit_l="-3.14" limit_u="3.14" limit_v="0.5" />
+           limit_e="5000" limit_l="-3.14" limit_u="3.14" limit_v="0.5" />
 
   <m_link_mesh name="${link_05_name}"
               origin_rpy="0 1.6 0" origin_xyz="0 0 0"
@@ -129,7 +129,7 @@
   <!-- Joint leg -> bot right bone  -->
   <m_joint name="${link_05_name}__${link_08_name}" type="revolute"
            axis_xyz="-1 0 0.2"
-           origin_rpy="0 0 0.4" origin_xyz="0.05 0.025 0.38"
+           origin_rpy="0 0 0.4" origin_xyz="0.05 0.018 0.38"
            parent="link_05" child="link_08"
            limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
 

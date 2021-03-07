@@ -28,6 +28,10 @@
             joint5_position_controller
             joint6_position_controller
             joint7_position_controller
+            joint8_position_controller
+            joint9_position_controller
+            joint10_position_controller
+            joint11_position_controller
             --timeout 60">
         </node>
         <!-- joint7_position_controller
