@@ -94,37 +94,69 @@
               meshfile="package://eagle_claw_gripper/meshes/Leg_detailed.stl"
               meshscale="0.002 0.002 0.002" />
 
-  <!-- Joint leg -> top bone  -->
+  <!-- Joint leg -> bot left bone  -->
   <m_joint name="${link_05_name}__${link_06_name}" type="revolute"
            axis_xyz="-1 0 -0.3"
-           origin_rpy="0 0 -0.3" origin_xyz="0 0 0.38"
+           origin_rpy="0 0 -0.3" origin_xyz="-0.06 0.025 0.37"
            parent="link_05" child="link_06"
            limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
 
   <m_link_mesh name="${link_06_name}"
-              origin_rpy="0 1.2 0" origin_xyz="-0.065 0.01 -0.01"
+              origin_rpy="0 1.2 0" origin_xyz="0 0 -0.01"
               mass="20"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
               meshfile="package://eagle_claw_gripper/meshes/Bone.stl"
               meshscale="0.002 0.002 0.002" />
-  <!-- Joint top bone -> top talon  -->
+
+  <!-- Joint bot left bone -> bot left talon  -->
   <m_joint name="${link_06_name}__${link_07_name}" type="revolute"
-           axis_xyz="1.5 0.3 0.3"
-           origin_rpy="0 0 0.3" origin_xyz="0 0 0.2"
+           axis_xyz="-1 0 -0.5"
+           origin_rpy="0 0 0.3" origin_xyz="-0.01 0.00 0.1"
            parent="link_06" child="link_07"
            limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
 
   <m_link_mesh name="${link_07_name}"
-              origin_rpy="1.5 1.2 1.5" origin_xyz="-0.065 0.01 -0.01"
+              origin_rpy="1.6 2 3" origin_xyz="0 0 0"
               mass="20"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
               meshfile="package://eagle_claw_gripper/meshes/Talon.stl"
               meshscale="0.002 0.002 0.002" />
-              
+  
+  <!-- Joint leg -> bot right bone  -->
+  <m_joint name="${link_05_name}__${link_08_name}" type="revolute"
+           axis_xyz="-1 0 -0.3"
+           origin_rpy="0 0 -0.3" origin_xyz="0.05 0.025 0.38"
+           parent="link_05" child="link_08"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+
+  <m_link_mesh name="${link_08_name}"
+              origin_rpy="0 2 0" origin_xyz="0 0 -0.01"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Bone.stl"
+              meshscale="0.002 0.002 0.002" />
+
+   <!-- Joint bot right bone -> bot right talon  -->
+  <m_joint name="${link_08_name}__${link_09_name}" type="revolute"
+           axis_xyz="-1 0 -0.5"
+           origin_rpy="0 0 0.3" origin_xyz="-0.01 0.00 0.1"
+           parent="link_08" child="link_09"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+           
+  <m_link_mesh name="${link_09_name}"
+              origin_rpy="1.6 2 3" origin_xyz="0 0 0"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Talon.stl"
+              meshscale="0.002 0.002 0.002" />
   <!-- END - Robot description -->
   
   <gazebo>
