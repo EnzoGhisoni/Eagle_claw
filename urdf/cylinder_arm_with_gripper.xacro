@@ -118,7 +118,7 @@
            limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
 
   <m_link_mesh name="${link_07_name}"
-              origin_rpy="1.6 2 3" origin_xyz="0 0 0"
+              origin_rpy="1.6 1.7 3" origin_xyz="0 0 0"
               mass="20"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
@@ -145,12 +145,12 @@
   <!-- Joint bot right bone -> bot right talon  -->
   <m_joint name="${link_08_name}__${link_09_name}" type="revolute"
            axis_xyz="-1 0 0.5"
-           origin_rpy="-1 0.3 0.3" origin_xyz="0.075 0.00 0.08"
+           origin_rpy="-1 0.3 0.3" origin_xyz="0.075 0.00 0.078"
            parent="link_08" child="link_09"
            limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
            
   <m_link_mesh name="${link_09_name}"
-              origin_rpy="1.6 1.2 3" origin_xyz="0 0 0"
+              origin_rpy="1.6 1 3" origin_xyz="0 0 0"
               mass="20"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
