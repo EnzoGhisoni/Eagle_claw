@@ -157,6 +157,38 @@
               izz="9.655"
               meshfile="package://eagle_claw_gripper/meshes/Talon.stl"
               meshscale="0.002 0.002 0.002" />
+
+  <!-- Joint leg -> top bone  -->
+  <m_joint name="${link_05_name}__${link_10_name}" type="revolute"
+           axis_xyz="1 0 0"
+           origin_rpy="0 0 0" origin_xyz="0.024 0.13 0.32"
+           parent="link_05" child="link_10"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+
+  <m_link_mesh name="${link_10_name}"
+              origin_rpy="1.6 0.5 -1.6" origin_xyz="0 0 0"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Bone.stl"
+              meshscale="0.002 0.002 0.002" />
+
+  <!-- Joint top bone -> top talon  -->
+  <m_joint name="${link_10_name}__${link_11_name}" type="revolute"
+           axis_xyz="1 0 0"
+           origin_rpy="0 0 0" origin_xyz="-0.027 0.10 0.05"
+           parent="link_10" child="link_11"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+           
+  <m_link_mesh name="${link_11_name}"
+              origin_rpy="0 1.5 -1.6" origin_xyz="0 0 0"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Talon.stl"
+              meshscale="0.002 0.002 0.002" />
   <!-- END - Robot description -->
   
   <gazebo>
