@@ -1,0 +1,272 @@
+<?xml version="1.0" ?>
+
+<robot name="mrm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <!-- BGN - Include -->
+  <xacro:include filename="$(find eagle_claw_gripper)/urdf/robot_parameters.xacro" />
+  <xacro:include filename="$(find eagle_claw_gripper)/urdf/links_joints.xacro" />
+  <!-- END - Include -->
+  
+  <!-- BGN - Robot description -->
+  <m_link_box name="${link_00_name}"
+              origin_rpy="0 0 0" origin_xyz="0 0 0"
+              mass="1024"
+              ixx="170.667" ixy="0" ixz="0"
+              iyy="170.667" iyz="0"
+              izz="170.667"
+              size="1 1 1" />
+              
+  <m_joint name="${link_00_name}__${link_01_name}" type="revolute"
+           axis_xyz="0 0 1"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.5"
+           parent="base_link" child="link_01"
+           limit_e="1000" limit_l="-3.14" limit_u="3.14" limit_v="0.5" />
+           
+  <m_link_mesh name="${link_01_name}"
+              origin_rpy="0 0 0" origin_xyz="0 0 -0.1"
+              mass="157.633"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://mrm_description/meshes/Link1-v2.stl"
+              meshscale="0.001 0.001 0.001" />
+  
+  
+  <!-- Robot description with origin initial condition -->       
+  <m_joint name="${link_01_name}__${link_02_name}" type="revolute"
+           axis_xyz="0 1 0"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.4"
+           parent="link_01" child="link_02"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+           
+  <m_link_cylinder name="${link_02_name}"
+              origin_rpy="0 0 0" origin_xyz="0 0 0.4"
+              mass="57.906"
+              ixx="12.679" ixy="0" ixz="0"
+              iyy="12.679" iyz="0"
+              izz="0.651"
+              radius="0.15" length="0.8" />
+              
+  <m_joint name="${link_02_name}__${link_03_name}" type="revolute"
+           axis_xyz="0 1 0"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.8"
+           parent="link_02" child="link_03"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+           
+  <m_link_cylinder name="${link_03_name}"
+              origin_rpy="0 0 0" origin_xyz="0 0 0.4"
+              mass="57.906"
+              ixx="12.679" ixy="0" ixz="0"
+              iyy="12.679" iyz="0"
+              izz="0.651"
+              radius="0.15" length="0.8" />
+  
+  <m_joint name="${link_03_name}__${link_04_name}" type="revolute"
+           axis_xyz="0 1 0"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.8"
+           parent="link_03" child="link_04"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+           
+  <m_link_cylinder name="${link_04_name}"
+              origin_rpy="0 0 0" origin_xyz="0 0 0.4"
+              mass="57.906"
+              ixx="12.679" ixy="0" ixz="0"
+              iyy="12.679" iyz="0"
+              izz="0.651"
+              radius="0.15" length="0.8" />
+
+  <!-- End of arm declaration -->
+
+  <!-- Begin of the gripper declaration -->
+  <!-- Rotation of the wrist -->
+  <m_joint name="${link_04_name}__${link_05_name}" type="revolute"
+           axis_xyz="0 0 1"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.8"
+           parent="link_04" child="link_05"
+           limit_e="5000" limit_l="-3.14" limit_u="3.14" limit_v="0.5" />
+
+  <m_link_mesh name="${link_05_name}"
+              origin_rpy="0 1.6 0" origin_xyz="0 0 0"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Leg_detailed.stl"
+              meshscale="0.002 0.002 0.002" />
+
+  <!-- Joint leg -> bot left bone  -->
+  <m_joint name="${link_05_name}__${link_06_name}" type="revolute"
+           axis_xyz="-1 0 -0.3"
+           origin_rpy="0 0 -0.3" origin_xyz="-0.06 0.025 0.37"
+           parent="link_05" child="link_06"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+
+  <m_link_mesh name="${link_06_name}"
+              origin_rpy="0 1.2 0" origin_xyz="0 0 -0.01"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Bone.stl"
+              meshscale="0.002 0.002 0.002" />
+
+  <!-- Joint bot left bone -> bot left talon  -->
+  <m_joint name="${link_06_name}__${link_07_name}" type="revolute"
+           axis_xyz="-1 0 -0.5"
+           origin_rpy="-1 -0.1 0.1" origin_xyz="-0.01 0.00 0.1"
+           parent="link_06" child="link_07"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+
+  <m_link_mesh name="${link_07_name}"
+              origin_rpy="1.6 1.7 3" origin_xyz="0 0 0"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Talon.stl"
+              meshscale="0.002 0.002 0.002" />
+  
+  <!-- Joint leg -> bot right bone  -->
+  <m_joint name="${link_05_name}__${link_08_name}" type="revolute"
+           axis_xyz="-1 0 0.2"
+           origin_rpy="0 0 0.4" origin_xyz="0.05 0.018 0.38"
+           parent="link_05" child="link_08"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+
+  <m_link_mesh name="${link_08_name}"
+              origin_rpy="0 2 0.05" origin_xyz="0 0 -0.01"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Bone.stl"
+              meshscale="0.002 0.002 0.002" />
+
+  <!-- Joint bot right bone -> bot right talon  -->
+  <m_joint name="${link_08_name}__${link_09_name}" type="revolute"
+           axis_xyz="-1 0 0.5"
+           origin_rpy="-1 0.3 0.3" origin_xyz="0.075 0.00 0.078"
+           parent="link_08" child="link_09"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+           
+  <m_link_mesh name="${link_09_name}"
+              origin_rpy="1.6 1 3" origin_xyz="0 0 0"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Talon.stl"
+              meshscale="0.002 0.002 0.002" />
+
+  <!-- Joint leg -> top bone  -->
+  <m_joint name="${link_05_name}__${link_10_name}" type="revolute"
+           axis_xyz="1 0 0"
+           origin_rpy="0 0 0" origin_xyz="0.024 0.13 0.32"
+           parent="link_05" child="link_10"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+
+  <m_link_mesh name="${link_10_name}"
+              origin_rpy="1.6 0.5 -1.6" origin_xyz="0 0 0"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Bone.stl"
+              meshscale="0.002 0.002 0.002" />
+
+  <!-- Joint top bone -> top talon  -->
+  <m_joint name="${link_10_name}__${link_11_name}" type="revolute"
+           axis_xyz="1 0 0"
+           origin_rpy="0 0 0" origin_xyz="-0.027 0.10 0.05"
+           parent="link_10" child="link_11"
+           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+           
+  <m_link_mesh name="${link_11_name}"
+              origin_rpy="0 1.5 -1.6" origin_xyz="0 0 0"
+              mass="20"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Talon.stl"
+              meshscale="0.002 0.002 0.002" />
+  <!-- END - Robot description -->
+
+  <!-- Camera Link/Joint-->
+    <joint name="camera_joint" type="fixed">
+      <axis xyz="0 1 0" />
+      <origin xyz="0 -0.05 0.27" rpy="1.55 -1.55 0"/>
+      <parent link="link_05"/>
+      <child link="camera_link"/>
+    </joint>
+
+    <link name="camera_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+      <box size="0.05 0.05 0.05"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+      <box size="0.05 0.05 0.05"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+
+
+    <!-- Camera Gazebo -->
+    <gazebo reference="camera_link">
+      <sensor type="camera" name="camera1">
+        <update_rate>30.0</update_rate>
+        <camera name="head">
+          <horizontal_fov>1.3962634</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>800</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise is sampled independently per pixel on each frame.
+                 That pixel's noise value is added to each of its color
+                 channels, which at that point lie in the range [0,1]. -->
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>gripper/camera</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>camera_link</frameName>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
+  
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    </plugin>
+  </gazebo>
+  
+</robot>

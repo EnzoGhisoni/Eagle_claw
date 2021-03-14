@@ -27,6 +27,7 @@ roslaunch integrated_robotics_project turtlebot3_search_and_rescue.launch
 rosrun find_object_2d find_object_2d image:=/camera/rgb/image_raw
 roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=frontier_exploration
 roslaunch explore_lite explore.launch
+rosrun image_view image_view image:=/image_marked
 """
 
 
