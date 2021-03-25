@@ -41,57 +41,42 @@
            limit_e="5000" limit_l="0" limit_u="1.57" limit_v="2" />
            
   <m_link_mesh name="${link_02_name}"
-              origin_rpy="1.57 0 0" origin_xyz="-0.29 0 0"
+              origin_rpy="3.14 0 3.14" origin_xyz="-0.42 0.54 0.32"
               mass="157.633"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
-              meshfile="package://eagle_claw_gripper/meshes/Joint2.stl"
-              meshscale="0.1 0.1 0.1" />
-        
-  <m_joint name="${link_02_name}__link2_bis" type="fixed"
-           axis_xyz="0 0 0"
-           origin_rpy="0 0 0" origin_xyz="0.4 0 0"
-           parent="link_02" child="link2_bis"
-           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
-  
-  <m_link_mesh name="link2_bis"
-              origin_rpy="1.57 0 3.14" origin_xyz="0 0 0"
-              mass="157.633"
-              ixx="13.235" ixy="0" ixz="0"
-              iyy="13.235" iyz="0"
-              izz="9.655"
-              meshfile="package://eagle_claw_gripper/meshes/Link1.stl"
+              meshfile="package://eagle_claw_gripper/meshes/1.stl"
               meshscale="0.1 0.1 0.1" />
 
-  <m_joint name="link2_bis__${link_03_name}" type="revolute"
+  <m_joint name="${link_02_name}__${link_03_name}" type="revolute"
            axis_xyz="1 0 0"
-           origin_rpy="0 0 0" origin_xyz="0 0 1.5"
-           parent="link2_bis" child="link_03"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.75"
+           parent="link_02" child="link_03"
            limit_e="5000" limit_l="0" limit_u="1.57" limit_v="2" />
 
   <m_link_mesh name="${link_03_name}"
-              origin_rpy="0 0 3.14" origin_xyz="-0.04 0 0"
+              origin_rpy="3.14 0 0" origin_xyz="-0.02 1.5 0.78"
               mass="157.633"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
-              meshfile="package://eagle_claw_gripper/meshes/Joint3.stl"
+              meshfile="package://eagle_claw_gripper/meshes/2.stl"
               meshscale="0.1 0.1 0.1" />
 
-  <m_joint name="${link_03_name}__${link_04_name}" type="fixed"
-           axis_xyz="0 0 0"
-           origin_rpy="0 0 0" origin_xyz="-0.63 0 0"
+  <m_joint name="${link_03_name}__${link_04_name}" type="revolute"
+           axis_xyz="1 0 0"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.75"
            parent="link_03" child="link_04"
            limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
            
   <m_link_mesh name="${link_04_name}"
-              origin_rpy="0 0 0" origin_xyz="0 0 0.16"
+              origin_rpy="0 0 0" origin_xyz="-1.48 -0.765 -0.34"
               mass="157.633"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
-              meshfile="package://eagle_claw_gripper/meshes/Link2.stl"
+              meshfile="package://eagle_claw_gripper/meshes/3.stl"
               meshscale="0.1 0.1 0.1" />
 
   <!-- End of arm declaration -->
@@ -100,7 +85,7 @@
   <!-- Rotation of the wrist -->
   <m_joint name="${link_04_name}__${link_05_name}" type="revolute"
            axis_xyz="0 0 1"
-           origin_rpy="0 0 0" origin_xyz="0 0 0.8"
+           origin_rpy="0 0 0" origin_xyz="-0.35 0 0.85"
            parent="link_04" child="link_05"
            limit_e="5000" limit_l="-3.14" limit_u="3.14" limit_v="0.5" />
 
