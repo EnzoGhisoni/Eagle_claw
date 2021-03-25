@@ -82,6 +82,11 @@ Visualization Manager:
           Show Axes: true
           Show Trail: false
           Value: true
+        link2_bis:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         link_01:
           Alpha: 1
           Show Axes: true
@@ -144,19 +149,64 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        base_link:
+          Value: true
+        camera_link:
+          Value: true
+        link2_bis:
+          Value: true
+        link_01:
+          Value: true
+        link_02:
+          Value: true
+        link_03:
+          Value: true
+        link_04:
+          Value: true
+        link_05:
+          Value: true
+        link_06:
+          Value: true
+        link_07:
+          Value: true
+        link_08:
+          Value: true
+        link_09:
+          Value: true
+        link_10:
+          Value: true
+        link_11:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        base_link:
+          link_01:
+            link_02:
+              link2_bis:
+                link_03:
+                  link_04:
+                    link_05:
+                      camera_link:
+                        {}
+                      link_06:
+                        link_07:
+                          {}
+                      link_08:
+                        link_09:
+                          {}
+                      link_10:
+                        link_11:
+                          {}
       Update Interval: 0
-      Value: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -182,25 +232,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.92042613
+      Distance: 4.9529438
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.456703663
-        Y: -0.153025135
-        Z: 3.13293052
+        X: -0.229909152
+        Y: 0.470696777
+        Z: 1.07153666
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.135399044
+      Pitch: 0.415399373
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.00538674183
+      Yaw: 4.71857643
     Saved: ~
 Window Geometry:
   Displays:

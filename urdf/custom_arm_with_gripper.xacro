@@ -8,72 +8,91 @@
   <!-- END - Include -->
   
   <!-- BGN - Robot description -->
-  <m_link_box name="${link_00_name}"
-              origin_rpy="0 0 0" origin_xyz="0 0 0"
+  <m_link_mesh name="${link_00_name}"
+              origin_rpy="1.57 0 0" origin_xyz="0 0 0"
               mass="1024"
               ixx="170.667" ixy="0" ixz="0"
               iyy="170.667" iyz="0"
               izz="170.667"
-              size="1 1 1" />
+              meshfile="package://eagle_claw_gripper/meshes/Base.stl"
+              meshscale="0.1 0.1 0.1" />
               
   <m_joint name="${link_00_name}__${link_01_name}" type="revolute"
            axis_xyz="0 0 1"
-           origin_rpy="0 0 0" origin_xyz="0 0 0.5"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.1"
            parent="base_link" child="link_01"
            limit_e="1000" limit_l="-3.14" limit_u="3.14" limit_v="0.5" />
            
   <m_link_mesh name="${link_01_name}"
-              origin_rpy="0 0 0" origin_xyz="0 0 -0.1"
+              origin_rpy="1.57 0 0" origin_xyz="0 0 -0.1"
               mass="157.633"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
-              meshfile="package://mrm_description/meshes/Link1-v2.stl"
-              meshscale="0.001 0.001 0.001" />
+              meshfile="package://eagle_claw_gripper/meshes/Joint1.stl"
+              meshscale="0.1 0.1 0.1" />
   
   
   <!-- Robot description with origin initial condition -->       
   <m_joint name="${link_01_name}__${link_02_name}" type="revolute"
-           axis_xyz="0 1 0"
-           origin_rpy="0 0 0" origin_xyz="0 0 0.4"
+           axis_xyz="1 0 0"
+           origin_rpy="0 0 0" origin_xyz="0 0 0.65"
            parent="link_01" child="link_02"
-           limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
+           limit_e="5000" limit_l="0" limit_u="1.57" limit_v="2" />
            
-  <m_link_cylinder name="${link_02_name}"
-              origin_rpy="0 0 0" origin_xyz="0 0 0.4"
-              mass="57.906"
-              ixx="12.679" ixy="0" ixz="0"
-              iyy="12.679" iyz="0"
-              izz="0.651"
-              radius="0.15" length="0.8" />
-              
-  <m_joint name="${link_02_name}__${link_03_name}" type="revolute"
-           axis_xyz="0 1 0"
-           origin_rpy="0 0 0" origin_xyz="0 0 0.8"
-           parent="link_02" child="link_03"
+  <m_link_mesh name="${link_02_name}"
+              origin_rpy="1.57 0 0" origin_xyz="-0.29 0 0"
+              mass="157.633"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Joint2.stl"
+              meshscale="0.1 0.1 0.1" />
+        
+  <m_joint name="${link_02_name}__link2_bis" type="fixed"
+           axis_xyz="0 0 0"
+           origin_rpy="0 0 0" origin_xyz="0.4 0 0"
+           parent="link_02" child="link2_bis"
            limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
-           
-  <m_link_cylinder name="${link_03_name}"
-              origin_rpy="0 0 0" origin_xyz="0 0 0.4"
-              mass="57.906"
-              ixx="12.679" ixy="0" ixz="0"
-              iyy="12.679" iyz="0"
-              izz="0.651"
-              radius="0.15" length="0.8" />
   
-  <m_joint name="${link_03_name}__${link_04_name}" type="revolute"
-           axis_xyz="0 1 0"
-           origin_rpy="0 0 0" origin_xyz="0 0 0.8"
+  <m_link_mesh name="link2_bis"
+              origin_rpy="1.57 0 3.14" origin_xyz="0 0 0"
+              mass="157.633"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Link1.stl"
+              meshscale="0.1 0.1 0.1" />
+
+  <m_joint name="link2_bis__${link_03_name}" type="revolute"
+           axis_xyz="1 0 0"
+           origin_rpy="0 0 0" origin_xyz="0 0 1.5"
+           parent="link2_bis" child="link_03"
+           limit_e="5000" limit_l="0" limit_u="1.57" limit_v="2" />
+
+  <m_link_mesh name="${link_03_name}"
+              origin_rpy="0 0 3.14" origin_xyz="-0.04 0 0"
+              mass="157.633"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Joint3.stl"
+              meshscale="0.1 0.1 0.1" />
+
+  <m_joint name="${link_03_name}__${link_04_name}" type="fixed"
+           axis_xyz="0 0 0"
+           origin_rpy="0 0 0" origin_xyz="-0.63 0 0"
            parent="link_03" child="link_04"
            limit_e="5000" limit_l="0" limit_u="1" limit_v="2" />
            
-  <m_link_cylinder name="${link_04_name}"
-              origin_rpy="0 0 0" origin_xyz="0 0 0.4"
-              mass="57.906"
-              ixx="12.679" ixy="0" ixz="0"
-              iyy="12.679" iyz="0"
-              izz="0.651"
-              radius="0.15" length="0.8" />
+  <m_link_mesh name="${link_04_name}"
+              origin_rpy="0 0 0" origin_xyz="0 0 0.16"
+              mass="157.633"
+              ixx="13.235" ixy="0" ixz="0"
+              iyy="13.235" iyz="0"
+              izz="9.655"
+              meshfile="package://eagle_claw_gripper/meshes/Link2.stl"
+              meshscale="0.1 0.1 0.1" />
 
   <!-- End of arm declaration -->
 
