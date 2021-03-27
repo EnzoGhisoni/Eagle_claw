@@ -106,11 +106,12 @@ class JointPub(object):
 		  i += 1
 
 	def inverse_kinematic_from_pose(self, px, py, pz, alpha, theta5):
-		b = 1
+		b = 0.1
 		theta234 = alpha
 		d1 = d3 = d4 = 1
 		d2 = 1
 		
+		pz = pz
 
 		theta1 = - math.atan2(py, px)
 
@@ -120,8 +121,8 @@ class JointPub(object):
 		c234 = math.cos(theta234)
 		s234 = math.sin(theta234)
 
-		p1 = px * c1 + py * s1 - d4 * c234
-		p2 = pz - d4 * s234
+		#p1 = px * c1 + py * s1 - d4 * c234
+		#p2 = pz - d4 * s234
 
 		x_sqr = px**2
 		y_sqr = py**2
@@ -136,6 +137,7 @@ class JointPub(object):
 		theta4 = (theta234-theta2-theta3)
 		
 		return theta1, - theta2, theta3, - theta4
+
 	"""
 	def rightControlerPoseCallback(self, ros_pose):
 		self.actual_controler_pose = ros_pose

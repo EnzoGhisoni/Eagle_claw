@@ -42,7 +42,7 @@
            
   <m_link_mesh name="${link_02_name}"
               origin_rpy="3.14 0 3.14" origin_xyz="-0.42 0.54 0.32"
-              mass="157.633"
+              mass="57.906"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
@@ -57,7 +57,7 @@
 
   <m_link_mesh name="${link_03_name}"
               origin_rpy="3.14 0 0" origin_xyz="-0.02 1.5 0.78"
-              mass="157.633"
+              mass="57.906"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
@@ -72,7 +72,7 @@
            
   <m_link_mesh name="${link_04_name}"
               origin_rpy="0 0 0" origin_xyz="-1.48 -0.765 -0.34"
-              mass="157.633"
+              mass="57.906"
               ixx="13.235" ixy="0" ixz="0"
               iyy="13.235" iyz="0"
               izz="9.655"
@@ -85,7 +85,7 @@
   <!-- Rotation of the wrist -->
   <m_joint name="${link_04_name}__${link_05_name}" type="revolute"
            axis_xyz="0 0 1"
-           origin_rpy="0 0 0" origin_xyz="-0.35 0 0.85"
+           origin_rpy="0 0 3.14" origin_xyz="-0.35 0 0.85"
            parent="link_04" child="link_05"
            limit_e="5000" limit_l="-3.14" limit_u="3.14" limit_v="0.5" />
 
