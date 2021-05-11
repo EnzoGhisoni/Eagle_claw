@@ -128,11 +128,14 @@ class JointPub(object):
 		theta6 = theta7 = theta8 = theta9 = theta10 = theta11 = closingFactor
 		return theta6, theta7, theta8, theta9, theta10, theta11
 	
-
+	"""
+		Update the values of each angles of the joint according to the closing factor send by
+		the VR controller
+	"""
 	def rightControlerTriggerCallback(self, ros_msg):
 		self.closingFactor = ros_msg.data
 		
-	
+		
 		theta6, theta7, theta8, theta9, theta10, theta11 = self.closingGripper(ros_msg.data)
 		print("angles have been calculated")
 		self.actual_joint_pose = [theta6, theta7, theta8, theta9, theta10, theta11]

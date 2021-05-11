@@ -105,6 +105,10 @@ class JointPub(object):
 		  publisher_object.publish(joint_value)
 		  i += 1
 
+	"""
+		This function performs the computation of the inverse kinematic the control
+		each joint value of the arm
+	"""
 	def inverse_kinematic_from_pose(self, px, py, pz, alpha, theta5):
 		b = 0.1
 		theta234 = alpha
@@ -139,29 +143,8 @@ class JointPub(object):
 		return theta1, - theta2, theta3, - theta4
 
 	"""
-	def rightControlerPoseCallback(self, ros_pose):
-		self.actual_controler_pose = ros_pose
-		px = self.actual_controler_pose.position.x
-		py = self.actual_controler_pose.position.y
-		pz = self.actual_controler_pose.position.z
-		
-		
-		(_, alpha, _) = euler_from_quaternion([self.actual_controler_pose.orientation.x, 
-				 self.actual_controler_pose.orientation.y, 
-				 self.actual_controler_pose.orientation.z, 
-				 self.actual_controler_pose.orientation.w], 
-				 'sxyz')
-		# To adapt in the right frame
-		alpha = -alpha + 0.7
-
-		theta1, theta2, theta3, theta4 = self.inverse_kinematic_from_pose(px, py, pz, alpha)
-		print("angles have been calculated")
-		self.actual_joint_pose = [theta1, theta2, theta3, theta4]
-		#self.actual_joint_pose = [1.0, 1.0, 1.0, 1.0]
-		print(str(self.actual_joint_pose) + " and alpha: " + str(alpha))
-		self.move_joints(self.actual_joint_pose)
+		This callback is called at every update of the VR controller pose
 	"""
-
 	def rightControlerPoseStampCallback(self, ros_pose):
 		self.actual_controler_pose = ros_pose.pose
 
@@ -169,7 +152,7 @@ class JointPub(object):
 		py = self.actual_controler_pose.position.y
 		pz = self.actual_controler_pose.position.z
 		
-		
+		# Extract from the controller the values of theta 5 and the approach angle (alpha)
 		(theta5, alpha, _) = euler_from_quaternion([self.actual_controler_pose.orientation.x, 
 				 self.actual_controler_pose.orientation.y, 
 				 self.actual_controler_pose.orientation.z, 
@@ -183,7 +166,6 @@ class JointPub(object):
 		theta1, theta2, theta3, theta4 = self.inverse_kinematic_from_pose(px, py, pz, alpha, theta5)
 		print("angles have been calculated")
 		self.actual_joint_pose = [theta1, theta2, theta3, theta4, theta5]
-		#self.actual_joint_pose = [1.0, 1.0, 1.0, 1.0]
 		print(str(self.actual_joint_pose) + " and alpha: " + str(alpha))
 		self.move_joints(self.actual_joint_pose)
 	
@@ -194,7 +176,4 @@ if __name__=="__main__":
 		rospy.spin()
 	except rospy.KeyboardInterrupt:
 		print("Shutting down")
-	#rate_value = 0.5
-	#joint_publisher.start_loop(rate_value)
 
-	#joint_publisher.start_sinus_loop(rate_value)

@@ -20,23 +20,12 @@ from PySide2.QtGui import QTransform
 from PySide2.QtCore import QPointF
 from math import *
 
-"""
-Run the camera view
-rosrun image_view image_view image:=/image_rectangle
-roslaunch integrated_robotics_project turtlebot3_search_and_rescue.launch
-rosrun find_object_2d find_object_2d image:=/camera/rgb/image_raw
-roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=frontier_exploration
-roslaunch explore_lite explore.launch
-rosrun image_view image_view image:=/image_marked
-"""
-
 
 class Distance_estimation():
     def __init__(self):
         rospy.init_node("distance_estimation", anonymous=True)
         self.bridge = CvBridge()
-        self.image_sub = rospy.Subscriber('/usb_cam/image_raw', Image, self.image_callback)
-        #self.image_sub = rospy.Subscriber('/camera/rgb/image_raw/', Image, self.image_callback)
+        self.image_sub = rospy.Subscriber('/mrm/gripper/camera/image_raw', Image, self.image_callback)
         self.image_pub = rospy.Publisher('/image_marked', Image, queue_size=1)
         self.arm_command_pub = rospy.Publisher('/rightControlerTrigger', Float64, queue_size=1)
 
@@ -73,11 +62,18 @@ class Distance_estimation():
 
         self.mean_counter = 0
         self.previous_ref_marker = 0
-    
+
+    """
+        This callback updates the actual_image variable with the newest image from the camera
+    """
     def image_callback(self, ros_image):
         self.actual_image = ros_image
         self.find_visual_distance()
 
+    """
+        This function is called on every new image frame to detect yellow areas and estimate
+        its distance
+    """
     def find_visual_distance(self):
         focal_length_mm = 3.04
         sensor_width_mm = 3.68
@@ -85,13 +81,13 @@ class Distance_estimation():
         image_width_px = 640
         focal_length_px = (focal_length_mm / sensor_width_mm) * image_width_px
         object_size = 0.135
-        #camera_angle_conv = 0.0334
+        # Camera parameters
         camera_angle_conv = 0.0971
         camera_min_angle = -31.1
         camera_max_angle = 31.1
 
         cv_image = self.bridge.imgmsg_to_cv2(self.actual_image, "bgr8")
-
+        # Check if yellow is detect on the image
         state, xg, yg, width, height = self.detect_color_state(cv_image)
         if state == 1:
 
@@ -109,8 +105,10 @@ class Distance_estimation():
             ybotRight = yg + height
 
             cv2.rectangle(cv_image, (int(xtopLeft), int(ytopLeft)), (int(xbotRight), int(ybotRight)), (0, 255, 0), 2)
-            #cv2.putText(cv_image, "("+str(round(distance, 2)) + "m," + str(round(angle_deg, 2)) + "deg" + ")", (int(xtopLeft), int(ytopLeft)), font, 1, (255, 0, 255), 2)
-            cv2.putText(cv_image, "("+str(round(distance, 2)) + "m,", (int(xtopLeft), int(ytopLeft)), font, 1, (255, 0, 255), 2)
+            # add ethe text on the image with the distance indication
+            cv2.putText(cv_image, str(round(distance, 2)) + "m", (int(xtopLeft), int(ytopLeft)), font, 1, (255, 0, 255), 2)
+            cv2.imshow('With_distance', cv_image)
+            cv2.waitKey(0) 
             image_message = self.bridge.cv2_to_imgmsg(cv_image, "bgr8")
             self.image_pub.publish(image_message)
             if distance < 0.45:
@@ -119,13 +117,14 @@ class Distance_estimation():
                 self.arm_command_pub.publish(0)
 
         else:
+            # if no yellow is detected, publish the reveived image on the topic
             self.image_pub.publish(self.actual_image)
         
         
 
     """
-    this function takes the last image capture and look for green or red
-    if red detected = injured, green = alive
+    this function takes the last image capture and look for yellow
+    if a yellow area is detected, return 1 and the 2D position on the image
     """
     def detect_color_state(self, cv_image):
         width = 0
@@ -138,19 +137,20 @@ class Distance_estimation():
         #redLower = (0, 0, 30)
         #redUpper = (80, 80, 255)
         #redmask = cv2.inRange(hsv, redLower, redUpper)
-        # define a mask using the lower and upper bound of the green color
+        # define a mask using the lower and upper bound of the yellow color
         """
         greenLower = (40, 40,40)
         greenUpper = (70, 255,255)
         """
-        greenLower = (30, 80, 100)
-        greenUpper = (60, 255, 255)
-        greenmask = cv2.inRange(hsv, greenLower, greenUpper)
+        yellowLower = (30, 80, 100)
+        yellowUpper = (60, 255, 255)
+        yellowmask = cv2.inRange(hsv, yellowLower, yellowUpper)
+        cv2.imshow('mask', greenmask)
         
-        _, contours, _ = cv2.findContours(greenmask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        _, contours, _ = cv2.findContours(yellowmask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         if len(contours) > 0:
-            green_area = max(contours, key=cv2.contourArea)
-            (xg, yg, width, height) = cv2.boundingRect(green_area)
+            yellow_area = max(contours, key=cv2.contourArea)
+            (xg, yg, width, height) = cv2.boundingRect(yellow_area)
             print("widght and height : ("+ str(width) +", "+str(height))
 
         # Check a minimal size of mask to avoid false detections

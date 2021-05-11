@@ -12,6 +12,11 @@
 
 #define rad2deg (180/3.14159265)
 
+/*
+  This program is designed to control the 5 joints of the robotic arm form the data
+  available on the topics available on the ROS environement provided by the VR controller
+ */
+
 ros::NodeHandle  nh;
 
 Servo joint1;
@@ -20,10 +25,10 @@ Servo joint3;
 Servo joint4;
 Servo joint5;
 
-
+// These callbacks are called at every new publication on the attached topics
 void joint1_cb( const std_msgs::Float64& msg){
   int joint_angle = int(rad2deg * msg.data);
-  joint1.write(joint_angle); //set servo angle, should be from 0-180
+  joint1.write(joint_angle * 5); //set servo angle, should be from 0-180
 }
 void joint2_cb( const std_msgs::Float64& msg){
   int joint_angle = int(rad2deg * msg.data);
